@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="../static/styles.css">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Погода</title>
+</head>
+<body>
+    <h1>Погода : прогноз  и анализ</h1>
+
+    <div class="flex-div">
+        <div class="quarter-screen">
+            <div class="center">
+                Выберите город
+            </div>
+            {% block  city_select %}
+            <select class="center" id="city-select">
+                <option selected value="none">--</option>
+                <option value="Spasyonovsk">Спасёновск</option>
+                <option value="Moscow">Москва</option>
+                <option value="St. Petersburg">Питер</option>
+            </select>
+            {% endblock %}
+        </div>
+        <div class="quarter-screen">
+            <div class="center">
+                Выберите количество дней для предсказания
+            </div>
+            
+            <select class="center" id="days-select">
+                <option selected value="none">--</option>
+                <option value="1">1 день</option>
+                <option value="2">2 дня</option>
+                <option value="3">3 дня</option>
+                <option value="4">4 дня</option>
+                <option value="5">5 дней</option>
+                <option value="6">6 дней</option>
+                <option value="7">7 дней</option>
+            </select>
+        </div>
+        <div class="checkbox-div quarter-screen center">
+            <label><input type="checkbox" name="detailed-check" value="detailed">
+            Отобразить статистику за прошлые дни</label>
+        </div>
+        <button class="quarter-screen center forecast-button" onclick="callForecastHandler()">
+            Сделать прогноз
+        </button>
+    </div>
+    
+    {% block forecast_result %}
+    {% endblock %}
+    <script>
+         function callForecastHandler() {
+            
+            // заглушки (нужно брать данные с форм)
+            const city = "Moscow";
+            const days = "2";
+            const detail = "true";
+            
+            let query_params = `city=${city}&days=${days}&detail=true`
+            window.location.href = `http://localhost:5000/forecast?${query_params}`;
+            return false
+         }
+    </script>
+</body>
+</html>

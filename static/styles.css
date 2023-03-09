@@ -1,0 +1,104 @@
+* {    
+    box-sizing: border-box;
+    font-family: Bradley Hand, cursive;
+}
+
+
+.quarter-screen {
+    width: 25%;
+}
+
+
+.red {
+    background: red;
+}
+
+
+.blue {
+    background: blue;
+}
+
+
+.yellow {
+    background: yellow;
+}
+
+
+.flex-div {
+    display: flex;
+    margin-bottom: 40px;
+}
+
+
+.checkbox-div {
+    margin-bottom: 10px;
+}
+
+
+option {
+    text-align: left;
+}
+
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+
+.forecast-button {
+    color: white;
+    background-color: #537ffe;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+}
+
+
+.forecast-button:hover {
+    background-color: #5168c4;
+}
+
+
+.forecast-button:active {
+    background-color: #425bbd;
+    font-weight: bolder;
+    text-shadow: black 1px 1px;
+}
+
+
+.image {
+    display: block;
+    border: 1px solid black;
+}
+
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+
+li {
+    box-sizing: border-box;
+    text-align: left;
+    /* margin-left: 5px; */
+    padding-left: 5px;
+    /* margin-left: 5px; */
+    border: 1px solid black;
+}
+
+
+.list-title {
+    border: 1px solid black;
+    padding: 2px 50px;
+}
+
+
+/* .list {
+
+} */

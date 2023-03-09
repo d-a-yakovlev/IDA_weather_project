@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block forecast_result %}
+<div class="flex-div">
+    <img id="map-image" class="center image" src="data:image/jpeg;base64,{{ geo_painter_graph_base64 | safe}}">
+    <img id="graph-image" class="center image" src="data:image/png;base64,{{ estimator_graph_base64 | safe}}">
+</div>
+
+<div class="flex-div">
+    <ul class="center">
+        <span class="list-title">
+            Статистика
+        </span>
+        {% for stat in stats %}
+            <li>{{stat}}</li>
+        {% endfor %}
+    </ul>
+
+    {% if detailed_stats %}
+    <ul class="center">
+        <span class="list-title">
+           Подробная статистика
+        </span>
+        {% for stat in detailed_stats %}
+            <li>{{stat}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+{% endblock %}
