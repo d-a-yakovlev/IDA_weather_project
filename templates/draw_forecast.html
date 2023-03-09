@@ -7,24 +7,27 @@
 </div>
 
 <div class="flex-div">
-    <ul class="center">
-        <span class="list-title">
-            Статистика
-        </span>
-        {% for stat in stats %}
-            <li>{{stat}}</li>
-        {% endfor %}
-    </ul>
-
-    {% if detailed_stats %}
-    <ul class="center">
-        <span class="list-title">
-           Подробная статистика
-        </span>
-        {% for stat in detailed_stats %}
-            <li>{{stat}}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
+    <div class="half-screen flex-div">
+        <ul class="half-screen center">
+            <span class="list-title">
+                Статистика
+            </span>
+            {% for stat in stats %}
+                <li>{{stat}}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="half-screen flex-div">
+        {% if detailed_stats %}
+        <ul class="half-screen center">
+            <span class="list-title">
+               Подробная статистика
+            </span>
+            {% for stat in detailed_stats %}
+                <li>{{stat}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

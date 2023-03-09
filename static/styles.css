@@ -1,6 +1,16 @@
-* {    
+* {
     box-sizing: border-box;
-    font-family: Bradley Hand, cursive;
+    font-family: Arial;
+}
+
+
+.main {
+    max-width: 1280px;
+}
+
+
+.half-screen {
+    width: 50%;
 }
 
 
@@ -32,6 +42,11 @@
 
 .checkbox-div {
     margin-bottom: 10px;
+}
+
+
+.list {
+    width: 100%;
 }
 
 
@@ -94,8 +109,12 @@ li {
 
 
 .list-title {
+    font-weight: bold;
+    display: block;
     border: 1px solid black;
-    padding: 2px 50px;
+    border-bottom: 0px;
+    font-size: 1.05rem;
+    padding: 7px;
 }
 
 
