@@ -7,15 +7,16 @@ from utillity_modules.GeoPainter import GeoPainter
 
 
 PATH_TO_GRAPHS = "./static/graphs/"
-#storage = Storage()
+# storage = Storage()
+# estimator = Estimator(city=city, storage=storage)
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    #cities = storage.get_cities()
+    # cities = storage.get_cities()
     
-    #заглушка
+    # заглушка
     cities = ['Москва', 'Санкт-Петербург', 'Ульяновск', 'Иркутск', 'Спасёновск']
     
     context = {
@@ -32,9 +33,8 @@ def forecast():
 
     ## Примерное видение того как будут работать ваши модули
 
-    # estimator = Estimator(city=city, storage=Storage)
     # predictions = estimator.forecast(days=days, save_graph=True)
-    # GeoPainter(predictions, city=city, days=days).paint()
+    # GeoPainter(predictions, city=city, days=days, storage=storage).paint()
 
     # stats = estimator.get_stats()
     # detailed_stats = None

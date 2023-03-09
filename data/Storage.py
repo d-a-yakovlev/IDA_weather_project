@@ -2,6 +2,7 @@ import errno
 import os
 import sys
 import sqlite3
+import pandas
 
 DB_NAME = "weather_db"
 class Storage:
@@ -28,5 +29,8 @@ class Storage:
 
         cities = [t[0] for t in self.cur.execute(query).fetchall()]
         return cities
+    
+    def get_data_for_city(city):
+        pass
 
 
