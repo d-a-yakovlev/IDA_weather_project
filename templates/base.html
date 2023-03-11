@@ -7,51 +7,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Погода</title>
 </head>
-<body class="center main">
-    <h1>Погода : прогноз  и анализ</h1>
+<body>
+    <div class="center main">
+        <h1 data-unsp-sanitized="clean">Погода : прогноз  и анализ</h1>
+        <div class="flex-div select-div">
+            <div class="half-div">
+                <div class="select-title">
+                    Выберите город
+                </div>
+                <select class="center" id="city-select">
+                    <option selected value="none">--</option>
+                    {% block  city_select %}
+                    <option value="Spasyonovsk">Спасёновск</option>
+                    <option value="Moscow">Москва</option>
+                    <option value="St. Petersburg">Питер</option>
+                    {% endblock %}
+                </select>
+            </div>
 
-    <div class="flex-div">
-        <div class="quarter-screen">
-            <div class="center">
-                Выберите город
+            <div class="half-div">
+                <div class="select-title">
+                    Выберите количество дней
+                </div>
+                <select class="center" id="days-select">
+                    <option selected="" value="none">--</option>
+                    <option value="1">1 день</option>
+                    <option value="2">2 дня</option>
+                    <option value="3">3 дня</option>
+                    <option value="4">4 дня</option>
+                    <option value="5">5 дней</option>
+                    <option value="6">6 дней</option>
+                    <option value="7">7 дней</option>
+                </select>
             </div>
-            
-            <select class="center" id="city-select">
-                <option selected value="none">--</option>
-                {% block  city_select %}
-                <option value="Spasyonovsk">Спасёновск</option>
-                <option value="Moscow">Москва</option>
-                <option value="St. Petersburg">Питер</option>
-                {% endblock %}
-            </select>
         </div>
-        <div class="quarter-screen">
-            <div class="center">
-                Выберите количество дней
+
+        <div class="flex-div col-flex">
+            <div class="details-div checkbox-div center">
+                <label><input id="details-input-cb" type="checkbox" name="detailed-check" value="detailed">
+                Отобразить доп. статистику</label>
             </div>
-            
-            <select class="center" id="days-select">
-                <option selected value="none">--</option>
-                <option value="1">1 день</option>
-                <option value="2">2 дня</option>
-                <option value="3">3 дня</option>
-                <option value="4">4 дня</option>
-                <option value="5">5 дней</option>
-                <option value="6">6 дней</option>
-                <option value="7">7 дней</option>
-            </select>
+
+            <div class="button-div">
+                <button class="center forecast-button" onclick="callForecastHandler()">
+                    Сделать прогноз
+                </button>
+            </div>
         </div>
-        <div class="checkbox-div quarter-screen center">
-            <label><input id="details-input-cb" type="checkbox" name="detailed-check" value="detailed">
-            Отобразить подробную статистику</label>
-        </div>
-        <button class="quarter-screen center forecast-button" onclick="callForecastHandler()">
-            Сделать прогноз
-        </button>
+
+        {% block forecast_result %}
+        {% endblock %}
     </div>
-    
-    {% block forecast_result %}
-    {% endblock %}
     <script>
          function callForecastHandler() {
             const citySelectElement = document.getElementById('city-select');
