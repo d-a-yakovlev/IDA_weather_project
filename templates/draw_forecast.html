@@ -9,13 +9,18 @@
 
 {% block forecast_result %}
 <div class="flex-div">
-    <img id="map-image" class="center image" src="data:image/jpeg;base64,{{ geo_painter_graph_base64 | safe}}">
-    <img id="graph-image" class="center image" src="data:image/png;base64,{{ estimator_graph_base64 | safe}}">
+    <div class="half-div">
+        <img id="map-image" class="center image" src="data:image/jpeg;base64,{{ geo_painter_graph_base64 | safe}}">
+    </div>
+
+    <div class="half-div">
+        <img id="graph-image" class="center image" src="data:image/jpeg;base64,{{ geo_painter_graph_base64 | safe}}">
+    </div>
 </div>
 
-<div class="flex-div">
-    <div class="half-screen flex-div">
-        <ul class="half-screen center">
+<div class="flex-div stats-div">
+    <div class="half-div">
+        <ul class="center">
             <span class="list-title">
                 Статистика
             </span>
@@ -24,11 +29,12 @@
             {% endfor %}
         </ul>
     </div>
-    <div class="half-screen flex-div">
+
+    <div class="half-div">
         {% if detailed_stats %}
-        <ul class="half-screen center">
+        <ul class="center">
             <span class="list-title">
-               Подробная статистика
+                Подробная статистика
             </span>
             {% for stat in detailed_stats %}
                 <li>{{stat}}</li>
