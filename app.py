@@ -7,19 +7,19 @@ from utillity_modules.GeoPainter import GeoPainter
 
 
 PATH_TO_GRAPHS = "./static/graphs/"
-# storage = Storage()
-# estimator = Estimator(city=city, storage=storage)
 app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    # cities = storage.get_cities()
-    
+    storage = Storage()
+    id_cities, cities = storage.get_cities()
+
     # заглушка
-    cities = ['Москва', 'Санкт-Петербург', 'Ульяновск', 'Иркутск', 'Спасёновск']
+    # cities = ['Москва', 'Санкт-Петербург', 'Ульяновск', 'Иркутск', 'Спасёновск']
     
     context = {
+        'id_cities' : id_cities,
         'cities' : cities,
     }
     return render_template("index.html", **context)
@@ -27,17 +27,19 @@ def index():
 
 @app.route('/forecast')
 def forecast():
-    city = request.args['city']
+    city = int(request.args['city'])
     days = int(request.args['days'])
     detail = True if request.args['detail'] == "true" else False
 
-    # cities = storage.get_cities()
+    storage = Storage()
+    id_cities, cities = storage.get_cities()
     # заглушка
-    cities = ['Москва', 'Санкт-Петербург', 'Ульяновск', 'Иркутск', 'Спасёновск']
+    # cities = ['Москва', 'Санкт-Петербург', 'Ульяновск', 'Иркутск', 'Спасёновск']
 
     ## Примерное видение того как будут работать ваши модули
+    estimator = Estimator(storage=storage)
+    predictions = estimator.forecast(city, days)
 
-    # predictions = estimator.forecast(days=days, save_graph=True)
     # GeoPainter(predictions, city=city, days=days, storage=storage).paint()
 
     # stats = estimator.get_stats()
@@ -60,9 +62,17 @@ def forecast():
         'detailed_stats' : detailed_stats,
         'estimator_graph_base64' : estimator_graph_base64,
         'geo_painter_graph_base64' : geo_painter_graph_base64,
-        'cities' : cities
+        'id_cities' : id_cities,
+        'cities' : cities,
+
+        'predictions' : predictions,
     }
     return render_template("draw_forecast.html", **context)
+
+
+@app.route('/get_src')
+def get_src():
+    return render_template("weather_data.html")
 
 
 if __name__ == "__main__":
