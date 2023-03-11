@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block city_select %}
-{% for city in cities %}
-    <option value="{{city}}">{{city}}</option>
+{% for id in id_cities %}
+    <option value="{{id}}">{{cities[id]}}</option>
 {% endfor %}
 {% endblock %}
 
@@ -14,7 +14,7 @@
     </div>
 
     <div class="half-div">
-        <img id="graph-image" class="center image" src="data:image/jpeg;base64,{{ geo_painter_graph_base64 | safe}}">
+        <iframe class="geo-iframe" src="/get_src" seamless></iframe>
     </div>
 </div>
 

@@ -65,7 +65,8 @@
     <script>
          function callForecastHandler() {
             const citySelectElement = document.getElementById('city-select');
-            const city = citySelectElement.options[citySelectElement.selectedIndex].text;
+            const city = citySelectElement.value;
+
             const days = document.getElementById('days-select').value;
             const detail = document.getElementById('details-input-cb').checked;
 
