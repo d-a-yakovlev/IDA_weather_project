@@ -28,8 +28,12 @@ def index():
 @app.route('/forecast')
 def forecast():
     city = request.args['city']
-    days = request.args['days']
-    detail = request.args['detail']
+    days = int(request.args['days'])
+    detail = True if request.args['detail'] == "true" else False
+
+    # cities = storage.get_cities()
+    # заглушка
+    cities = ['Москва', 'Санкт-Петербург', 'Ульяновск', 'Иркутск', 'Спасёновск']
 
     ## Примерное видение того как будут работать ваши модули
 
@@ -55,7 +59,8 @@ def forecast():
         'stats' : stats,
         'detailed_stats' : detailed_stats,
         'estimator_graph_base64' : estimator_graph_base64,
-        'geo_painter_graph_base64' : geo_painter_graph_base64
+        'geo_painter_graph_base64' : geo_painter_graph_base64,
+        'cities' : cities
     }
     return render_template("draw_forecast.html", **context)
 

@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
+{% block city_select %}
+{% for city in cities %}
+    <option value="{{city}}">{{city}}</option>
+{% endfor %}
+{% endblock %}
+
+
 {% block forecast_result %}
 <div class="flex-div">
     <img id="map-image" class="center image" src="data:image/jpeg;base64,{{ geo_painter_graph_base64 | safe}}">

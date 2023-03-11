@@ -1,14 +1,9 @@
 {% extends "base.html" %}
 
 {% block city_select %}
-<select class="center" id="city-select">
-    <option selected value="none">--</option>
-
 {% for city in cities %}
     <option value="{{city}}">{{city}}</option>
 {% endfor %}
-
-</select>
 {% endblock %}
 
 

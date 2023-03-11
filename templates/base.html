@@ -15,14 +15,15 @@
             <div class="center">
                 Выберите город
             </div>
-            {% block  city_select %}
+            
             <select class="center" id="city-select">
                 <option selected value="none">--</option>
+                {% block  city_select %}
                 <option value="Spasyonovsk">Спасёновск</option>
                 <option value="Moscow">Москва</option>
                 <option value="St. Petersburg">Питер</option>
+                {% endblock %}
             </select>
-            {% endblock %}
         </div>
         <div class="quarter-screen">
             <div class="center">
@@ -41,7 +42,7 @@
             </select>
         </div>
         <div class="checkbox-div quarter-screen center">
-            <label><input type="checkbox" name="detailed-check" value="detailed">
+            <label><input id="details-input-cb" type="checkbox" name="detailed-check" value="detailed">
             Отобразить подробную статистику</label>
         </div>
         <button class="quarter-screen center forecast-button" onclick="callForecastHandler()">
@@ -53,12 +54,16 @@
     {% endblock %}
     <script>
          function callForecastHandler() {
-            // заглушки (нужно брать данные с форм)
-            const city = "Moscow";
-            const days = "2";
-            const detail = "true";
+            const citySelectElement = document.getElementById('city-select');
+            const city = citySelectElement.options[citySelectElement.selectedIndex].text;
+            const days = document.getElementById('days-select').value;
+            const detail = document.getElementById('details-input-cb').checked;
+
+            console.log(city);
+            console.log(days);
+            console.log(detail);
             
-            let query_params = `city=${city}&days=${days}&detail=true`
+            const query_params = `city=${city}&days=${days}&detail=${detail}`;
             window.location.href = `http://localhost:5000/forecast?${query_params}`;
             return false
          }
