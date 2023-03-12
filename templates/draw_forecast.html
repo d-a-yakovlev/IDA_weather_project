@@ -32,17 +32,17 @@
         </ul>
     </div>
 
+    {% if detailed_stats %}
     <div class="half-div">
-        {% if detailed_stats %}
         <ul class="center">
             <span class="list-title">
-                Подробная статистика
+                Cтатистика
             </span>
             {% for stat in detailed_stats %}
                 <li>{{stat}}</li>
             {% endfor %}
         </ul>
-        {% endif %}
     </div>
+    {% endif %}
 </div>
 {% endblock %}
