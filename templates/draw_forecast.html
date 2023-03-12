@@ -10,7 +10,7 @@
 {% block forecast_result %}
 <div class="flex-div">
     <div class="half-div">
-        <img id="map-image" class="center image" src="data:image/jpeg;base64,{{ geo_painter_graph_base64 | safe}}">
+        <img id="graph-image" class="center image" src="data:image/jpeg;base64,{{ estimator_graph_base64 | safe}}">
     </div>
 
     <div class="half-div">
@@ -22,10 +22,12 @@
     <div class="half-div">
         <ul class="center">
             <span class="list-title">
-                Статистика
+                {{predictions.city_name}}. Прогноз<br>с {{predictions.start_date}} по {{predictions.end_date}}
             </span>
-            {% for stat in stats %}
-                <li>{{stat}}</li>
+            {% for i in  predictions.idxs%}
+                <li>{{predictions.pred_dates[i]}} <br>
+                     дневная : {{predictions.pred_day[i]}} &deg;C <br>
+                     вечерняя : {{predictions.pred_evening[i]}} &deg;C</li>
             {% endfor %}
         </ul>
     </div>

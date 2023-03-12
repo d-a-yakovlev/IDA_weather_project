@@ -18,9 +18,11 @@ class Storage:
         self.conn = sqlite3.connect(DB_NAME) 
         self.cur = self.conn.cursor()
 
+
     def __del__(self):
         if os.path.exists(DB_NAME):
             self.conn.close()
+
 
     def get_cities(self):
         query = '''
@@ -32,7 +34,8 @@ class Storage:
         id_cities = [t[0] for t in cities_tup]
         cities = [t[1].split(',')[0] for t in cities_tup]
         return id_cities, cities
-    
+
+
     def get_data_for_city(self, city):
         query = f'''
             SELECT day
@@ -41,11 +44,24 @@ class Storage:
             ORDER BY date DESC
             LIMIT 7
         '''
-
         temps_day_tup = self.cur.execute(query).fetchall()
         temps = [t[0] for t in temps_day_tup]
         return list(reversed(temps))
     
+
+    def get_data_evening_for_city(self, city):
+        query = f'''
+            SELECT evening
+            FROM temperature
+            WHERE INTEGER = {city}
+            ORDER BY date DESC
+            LIMIT 7
+        '''
+        temps_day_tup = self.cur.execute(query).fetchall()
+        temps = [t[0] for t in temps_day_tup]
+        return list(reversed(temps))
+
+
     def get_last_date(self):
         query = '''
             SELECT date
@@ -56,6 +72,17 @@ class Storage:
 
         return [t[0] for t in self.cur.execute(query).fetchall()][0]
     
+
+    def get_city_by_id(self, id):
+        query = f'''
+            SELECT name
+            FROM cities
+            WHERE id = {id}
+            LIMIT 1
+        '''
+
+        return self.cur.execute(query).fetchall()[0][0]
+    
     
     def db_str_to_datetime_str(self, str_date : str):
         splitted_str = str_date.split('/')
@@ -63,9 +90,13 @@ class Storage:
             splitted_str[i] = f"{int(splitted_str[i]):02}"
             
         return '/'.join(splitted_str)
-        
+
+
     def db_str_to_datetime(self, str_date : str):
         datetime_str = self.db_str_to_datetime_str(str_date)
         return datetime.datetime.strptime(datetime_str, '%Y/%m/%d')
 
 
+    def datetime_to_str(self, dt):
+        return f"{dt.year}/{dt.month:02}/{dt.day:02}"
+    

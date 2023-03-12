@@ -1,5 +1,6 @@
 import base64
 from flask import Flask, render_template, request
+import datetime
 
 from data.Storage import Storage
 from utillity_modules.Estimator import  Estimator 
@@ -7,6 +8,9 @@ from utillity_modules.GeoPainter import GeoPainter
 
 
 PATH_TO_GRAPHS = "./static/graphs/"
+REPAINT = True
+last_repaint = datetime.datetime.today()
+
 app = Flask(__name__)
 
 
@@ -14,9 +18,14 @@ app = Flask(__name__)
 def index():
     storage = Storage()
     id_cities, cities = storage.get_cities()
+    index_requsted_dt = datetime.datetime.today()
 
-    # заглушка
-    # cities = ['Москва', 'Санкт-Петербург', 'Ульяновск', 'Иркутск', 'Спасёновск']
+    global REPAINT
+    global last_repaint
+    if REPAINT or (index_requsted_dt - last_repaint).days > 0:
+        GeoPainter(storage=storage).paint()
+        REPAINT = False
+        last_repaint = datetime.datetime.today()
     
     context = {
         'id_cities' : id_cities,
@@ -33,14 +42,11 @@ def forecast():
 
     storage = Storage()
     id_cities, cities = storage.get_cities()
-    # заглушка
-    # cities = ['Москва', 'Санкт-Петербург', 'Ульяновск', 'Иркутск', 'Спасёновск']
 
-    ## Примерное видение того как будут работать ваши модули
     estimator = Estimator(storage=storage)
-    predictions = estimator.forecast(city, days)
-
-    # GeoPainter(predictions, city=city, days=days, storage=storage).paint()
+    pred_dates, pred_day, pred_evening = estimator.forecast(city, days)
+    idxs = [i for i in range(len(pred_dates))]
+    city_name = storage.get_city_by_id(city)
 
     # stats = estimator.get_stats()
     # detailed_stats = None
@@ -65,14 +71,22 @@ def forecast():
         'id_cities' : id_cities,
         'cities' : cities,
 
-        'predictions' : predictions,
+        'predictions' : {
+            'city_name' : city_name,
+            'idxs' : idxs,
+            'start_date' : pred_dates[0],
+            'end_date' : pred_dates[-1],
+            'pred_dates' : pred_dates,
+            'pred_day' : pred_day,
+            'pred_evening' : pred_evening,
+        },
     }
     return render_template("draw_forecast.html", **context)
 
 
 @app.route('/get_src')
 def get_src():
-    return render_template("weather_data.html")
+    return render_template("weather_data_color.html")
 
 
 if __name__ == "__main__":

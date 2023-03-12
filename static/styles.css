@@ -117,6 +117,8 @@ option {
     display: block;
     border: 1px solid black;
     box-shadow: 1px 1px 2px grey;
+    width: 350px;
+    height: 250px;
 }
 
 
