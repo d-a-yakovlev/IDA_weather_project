@@ -16,8 +16,14 @@ class Estimator:
         self.pipe = pickle.load(open(PATH_TO_MODEL, 'rb'))
     
     def forecast(self, city : int, days : int) -> tuple:
-        temp_day = np.array(self.storage.get_data_for_city(city)).astype(np.float64)
-        temp_evening = np.array(self.storage.get_data_evening_for_city(city)).astype(np.float64)
+        temp_day_raw = np.array(self.storage.get_data_for_city(city)).astype(np.float64)
+        temp_evening_raw = np.array(self.storage.get_data_evening_for_city(city)).astype(np.float64)
+
+        nan_subs_day = np.nanmean(temp_day_raw) if np.nanmean(temp_day_raw) != np.nan else np.nanmean(temp_evening_raw)
+        nan_subs_evening = np.nanmean(temp_evening_raw) if np.nanmean(temp_evening_raw) != np.nan else np.nanmean(temp_day_raw)
+
+        temp_day = np.nan_to_num(temp_day_raw, nan=nan_subs_day, copy=True)
+        temp_evening = np.nan_to_num(temp_evening_raw, nan=nan_subs_evening, copy=True)
 
         last_date_in_db = self.storage.get_last_date()
         last_date_dt_in_db = self.storage.db_str_to_datetime(last_date_in_db)
@@ -45,8 +51,8 @@ class Estimator:
         true_dates = list(reversed([
             last_date_dt_in_db - datetime.timedelta(days=day)
             for day in range(7)]))
-        temp_day = np.array(self.storage.get_data_for_city(city)).astype(np.float64)
-        temp_evening = np.array(self.storage.get_data_evening_for_city(city)).astype(np.float64)
+        temp_day = np.nan_to_num(temp_day_raw, nan=nan_subs_day, copy=True)
+        temp_evening = np.nan_to_num(temp_evening_raw, nan=nan_subs_evening, copy=True)
 
         self.plot_weather(true_dates , temp_day, pred_w_day, temp_evening, pred_w_evening, city)
         
