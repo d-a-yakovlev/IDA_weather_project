@@ -18,7 +18,7 @@
                 <div class="select-title">
                     Выберите город
                 </div>
-                <select class="center" id="city-select">
+                <select onchange="checkButtonState()" class="center" id="city-select">
                     <option selected value="none">--</option>
                     {% block  city_select %}
                     <option value="Spasyonovsk">Спасёновск</option>
@@ -32,7 +32,7 @@
                 <div class="select-title">
                     Выберите количество дней
                 </div>
-                <select class="center" id="days-select">
+                <select onchange="checkButtonState()" class="center" id="days-select">
                     <option selected="" value="none">--</option>
                     <option value="1">1 день</option>
                     <option value="2">2 дня</option>
@@ -53,7 +53,7 @@
             </div>
 
             <div class="button-div">
-                <button class="center forecast-button" onclick="callForecastHandler()">
+                <button disabled class="center" id="forecast-button" onclick="callForecastHandler()">
                     Сделать прогноз
                 </button>
             </div>
@@ -78,6 +78,21 @@
             window.location.href = `http://localhost:5000/forecast?${query_params}`;
             return false
          }
+
+
+         function checkButtonState() {
+            console.log('checking');
+            const citySelect = document.getElementById("city-select");
+            const daysSelect = document.getElementById("days-select");
+            console.log("citySelect.value:", citySelect.value)
+            console.log("daysSelect.value:", daysSelect.value)
+            document.getElementById("forecast-button").disabled = !(citySelect.value != "none" && daysSelect.value != "none");
+         }
+
+
+         window.addEventListener('load', function () {
+            checkButtonState();
+         })
     </script>
 </body>
 </html>

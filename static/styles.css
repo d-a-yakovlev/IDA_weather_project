@@ -1,14 +1,7 @@
-@keyframes changing-colors {
-    0%   { background: #bebebe; }
-    50%  { background: #2072a1; }
-    100% { background: #bebebe; }
-}
-  
-  
 * {
     box-sizing: border-box;
     font-family: 'Unbounded', cursive;
-    font-size: 0.87rem;
+    font-size: 0.9rem;
     margin: 0;
 }
 
@@ -26,8 +19,7 @@ header {
 
 
 body {
-    /* background: linear-gradient(#ffffff, #424242, #ffffff); */
-    /* animation: changing-colors 9s infinite linear; */
+    padding-bottom: 35px;
 }
 
 .main {
@@ -101,7 +93,6 @@ body {
 
 
 select {
-    max-width: 125px;
     border: 2px solid #333;
     box-shadow: 1px 1px 2px grey;
     font-size: 0.85rem;
@@ -117,8 +108,9 @@ option {
     display: block;
     border: 1px solid black;
     box-shadow: 1px 1px 2px grey;
-    width: 350px;
-    height: 250px;
+    width: 450px;
+    height: 253px;
+    padding-bottom: 3px;
 }
 
 
@@ -136,7 +128,7 @@ li {
     text-align: left;
     margin: 0;
     /* margin-left: 5px; */
-    padding: 5px;
+    padding: 8px;
     /* margin-left: 5px; */
     border: 1px solid black;
 }
@@ -162,10 +154,10 @@ li:last-child {
 
 .flex-div {
 	display: flex;
-    width: calc(100% * 0.5);
+    width: 960px;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 
@@ -181,11 +173,11 @@ li:last-child {
 
 .button-div {
     margin-top: 7px;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 }
 
 
-.forecast-button {
+#forecast-button {
     background-color: transparent;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -194,24 +186,39 @@ li:last-child {
     font-size: 1rem;
     width: 210px;
     transition: 0.3s;
+    user-select: none;
 }
 
 
-.forecast-button:hover {
+#forecast-button:hover {
     color: white;
     background-color: #222;
     cursor: pointer;
 }
 
 
-.forecast-button:active {
+#forecast-button:active {
     font-weight: bolder;
     text-shadow: black 1px 1px;
 }
 
 
+#forecast-button[disabled]:hover  {
+    color: rgba(70, 70, 70, 0.3);
+    background-color: transparent;
+    cursor: default;
+}
+
+
+#forecast-button[disabled]:active  {
+    font-weight: bold;
+    text-shadow: none;
+}
+
+
+
 .stats-div {
-    margin-top: 50px;
+    margin-top: 70px;
 }
 
 
@@ -250,6 +257,7 @@ input[type=checkbox]:checked + span:before {
 .filt_label > span {
     display: inline-flex;
     outline: none;
+    user-select: none;
 }
 
 
@@ -272,5 +280,5 @@ input[type=checkbox]:checked + span:before {
 
 .geo-iframe {
     width: 450px;
-    height: 250px;
+    height: 253px;
 }
