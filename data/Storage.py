@@ -60,6 +60,18 @@ class Storage:
         temps_day_tup = self.cur.execute(query).fetchall()
         temps = [t[0] for t in temps_day_tup]
         return list(reversed(temps))
+    
+    def get_measures_for_city_k_days(self, measure, city, days):
+        query = f'''
+            SELECT {measure}
+            FROM temperature
+            WHERE INTEGER = {city}
+            ORDER BY date DESC
+            LIMIT {days}
+        '''
+        temps_day_tup = self.cur.execute(query).fetchall()
+        temps = [t[0] for t in temps_day_tup]
+        return list(reversed(temps))
 
 
     def get_last_date(self):

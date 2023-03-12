@@ -52,12 +52,26 @@ class Estimator:
         
         return pred_dates, pred_w_day, pred_w_evening
         
-    
-    def get_stats(self) -> List[str]:
-        pass
 
-    def get_detailed_stats(self) -> List[str]:
-        pass
+    def get_detailed_stats(self, city) -> List[str]:
+        day_temp_for_last_7_days = np.array(self.storage.get_measures_for_city_k_days("day", city, 7)).astype(np.float64)
+        day_temp_for_last_30_days = np.array(self.storage.get_measures_for_city_k_days("day", city, 30)).astype(np.float64)
+
+        evening_temp_for_last_7_days = np.array(self.storage.get_measures_for_city_k_days("evening", city, 7)).astype(np.float64)
+        evening_temp_for_last_30_days = np.array(self.storage.get_measures_for_city_k_days("evening", city, 30)).astype(np.float64)
+
+        stats = [
+            f"Средняя температура днём за последние 7 дней : {round(day_temp_for_last_7_days.mean(), ndigits=1)} °C",
+            f"Стандартное отклонение днём за последние 7 дней : {round(day_temp_for_last_7_days.std(), ndigits=1)} °C",
+            f"Средняя температура вечером за последние 7 дней : {round(evening_temp_for_last_7_days.mean(), ndigits=1)} °C",
+            f"Стандартное отклонение вечером за последние 7 дней : {round(evening_temp_for_last_7_days.std(), ndigits=1)} °C",
+            f"Средняя температура днём за последние 30 дней : {round(day_temp_for_last_30_days.mean(), ndigits=1)} °C",
+            f"Стандартное отклонение днём за последние 30 дней : {round(day_temp_for_last_30_days.std(), ndigits=1)} °C",
+            f"Средняя температура вечером за последние 30 дней : {round(evening_temp_for_last_30_days.mean(), ndigits=1)} °C",
+            f"Стандартное отклонение вечером за последние 30 дней : {round(evening_temp_for_last_30_days.std(), ndigits=1)} °C",
+        ]
+
+        return stats
 
 
     def plot_weather(self, days_true, weather_true_day, weather_pred_day,

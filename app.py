@@ -8,7 +8,7 @@ from utillity_modules.GeoPainter import GeoPainter
 
 
 PATH_TO_GRAPHS = "./static/graphs/"
-REPAINT = True
+REPAINT = False
 last_repaint = datetime.datetime.today()
 
 app = Flask(__name__)
@@ -48,23 +48,17 @@ def forecast():
     idxs = [i for i in range(len(pred_dates))]
     city_name = storage.get_city_by_id(city)
 
-    # stats = estimator.get_stats()
-    # detailed_stats = None
-    # if detail == 'true':
-    #     detailed_stats = estimator.get_detailed_stats()
+    detailed_stats = None
+    if detail:
+        detailed_stats = estimator.get_detailed_stats(city)
 
     with open(PATH_TO_GRAPHS + "estimator_graph.png", "rb") as img_file:
         estimator_graph_base64 = base64.b64encode(img_file.read()).decode("ascii")
 
     with open(PATH_TO_GRAPHS + "geo_painter_graph.png", "rb") as img_file:
         geo_painter_graph_base64 = base64.b64encode(img_file.read()).decode("ascii")
-
-    # заглушки
-    stats = ['среднее 322', 'дисперсия 228', 'квантиль квантилей']
-    detailed_stats = ['квантильный квантиль квантилей', 'p-value того что завтра не будет дедлайнов']
     
     context = {
-        'stats' : stats,
         'detailed_stats' : detailed_stats,
         'estimator_graph_base64' : estimator_graph_base64,
         'geo_painter_graph_base64' : geo_painter_graph_base64,
